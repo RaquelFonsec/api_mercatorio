@@ -711,3 +711,13 @@ Acesse no navegador
 http://localhost:3000/sidekiq
 
 
+
+## Contribuições
+
+Fique à vontade para abrir issues, enviar pull requests ou sugerir melhorias!
+
+## Suporte
+
+Se tiver dúvidas ou problemas, abra uma issue ou entre em contato.
+
+Obrigado por usar este projeto! 🚀
