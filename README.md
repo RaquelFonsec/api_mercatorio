@@ -511,7 +511,7 @@ O job `RevalidarCertidoesJob` automatiza a revalidação das certidões no siste
 
 Usamos Sidekiq Cron para agendar a execução diária às 2h da manhã.
 
-```ruby
+
 require 'sidekiq'
 require 'sidekiq-cron'
 
