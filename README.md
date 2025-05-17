@@ -1,28 +1,47 @@
 📦 Mercatório Backend Challenge
 
+Projeto API REST que simula a etapa de originação de precatórios na Mercatório, permitindo o cadastro de credores, seus precatórios, upload e gestão de documentos pessoais e certidões.
 
-O Mercatório Backend Challenge é um projeto de API REST que simula a etapa de originação de precatórios na Mercatório. A aplicação permite o cadastro de credores, seus respectivos precatórios, além do upload e gestão de documentos pessoais e certidões.
+O sistema suporta o fluxo inicial de análise jurídica e documental dos direitos creditórios, com funcionalidades para obtenção manual e automática de certidões, upload de documentos e consulta consolidada dos dados do credor.
 
+Uma API mock local simula a busca automática de certidões via CPF/CNPJ, enquanto um job agendado com Sidekiq Cron executa a revalidação periódica das certidões para manter os dados atualizados e íntegros.
 
-O objetivo do sistema é simular o fluxo inicial de análise jurídica e documental dos direitos creditórios, implementando funcionalidades como a obtenção manual e automática de certidões, upload de documentos pessoais e consulta consolidada dos dados do credor.
+Funcionalidades Principais
+Cadastro de credores e seus precatórios.
 
+Upload de documentos pessoais (ex: RG, comprovante de residência) com validação de formato e tamanho.
 
-Para fins de simulação, uma API mock local é utilizada para simular a busca automática de certidões a partir do CPF/CNPJ do credor.
+Upload manual e automático de certidões, incluindo suporte a arquivos Base64.
 
-Além disso, a aplicação utiliza o Sidekiq Cron para executar um job de revalidação automática das certidões a cada 24 horas. Esse job consulta todas as certidões cadastradas e verifica sua validade, garantindo que os dados estejam sempre atualizados e sincronizados com a fonte de origem. Essa abordagem assegura a integridade das informações e facilita a gestão dos documentos pelos usuários.
+Consulta consolidada de credores, documentos, precatórios e certidões.
 
+Revalidação automática diária das certidões via job Sidekiq Cron.
 
-Validação de arquivos enviados
+API mockada para simular consulta externa de certidões.
 
-Para garantir a integridade e segurança dos arquivos enviados, o sistema inclui validações específicas para o upload de documentos pessoais e certidões. As validações implementadas são:
+Painel Sidekiq para gerenciamento das filas.
 
-Tipos de arquivos permitidos: Apenas arquivos com as extensões e formatos mais comuns e seguros são aceitos, incluindo JPEG, PNG e PDF.
+Validações de Upload de Arquivos
+Tipos permitidos: JPEG, PNG, PDF.
 
-Tamanho máximo do arquivo: Os arquivos enviados não podem ultrapassar 5MB, prevenindo uploads excessivamente grandes que possam impactar a performance e o armazenamento.
+Tamanho máximo: 5MB por arquivo.
 
-Essas validações asseguram que apenas documentos válidos sejam processados pela API, melhorando a confiabilidade do sistema e evitando problemas futuros no manuseio dos arquivos.
+Essas restrições garantem integridade e segurança no armazenamento dos documentos.
 
+Tecnologias Utilizadas
+Ruby 3.1.2
 
+Rails 7.1.5.1
+
+PostgreSQL 14.17
+
+Redis 7.4.0
+
+Sidekiq 7.3.9 (com Sidekiq Cron)
+
+RSpec para testes automatizados
+
+Active Storage para upload de arquivos
 
 
 Como Executar o Projeto Localmente
