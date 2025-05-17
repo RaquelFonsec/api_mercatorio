@@ -220,6 +220,13 @@ Body:
 
 
 
+
+
+
+
+
+
+
 POST /credores/:id/documentos — Upload de documentos pessoais
 
 Faz o upload de documentos pessoais vinculados a um credor, como identidade, comprovante de residência, etc.
@@ -258,6 +265,12 @@ Body: URL temporária para acessar o documento enviado
 {
   "arquivo_url": "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MzQsInB1ciI6ImJsb2JfaWQifX0=--e3ca8071bea82cd8956755c32c76661119d07b44/RG.pdf"
 }
+
+
+
+
+
+
 
 
 
@@ -302,6 +315,8 @@ Você deve enviar um JSON no corpo da requisição com os seguintes campos:
   "conteudo_base64": "JVBERi0xLjUNCiW1tbW1DQoxIDAgb2JqDQo8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFIvTGFuZw=="
 }
 
+
+
 tipo: tipo da certidão (ex: federal, estadual, municipal, etc.)
 
 origem: origem da certidão (ex: manual)
@@ -332,6 +347,8 @@ EXEMPLO
 
 
 
+
+
 GET /credores/:id
 
 Descrição
@@ -349,6 +366,8 @@ curl -X GET http://localhost:3000/credores/1
 
 
 Exemplo de resposta JSON para GET /credores/:id
+
+
 
 
 
@@ -399,6 +418,8 @@ Exemplo de resposta JSON para GET /credores/:id
   ]
 }
 
+
+
 Explicação dos campos
 
 
@@ -418,6 +439,9 @@ created_at e updated_at: Datas de criação e última atualização do registro 
 
 
 
+
+
+
 precatorio
 id: Identificador único do precatório.
 
@@ -428,6 +452,8 @@ valor_nominal: Valor original do precatório.
 foro: Tribunal ou foro responsável pelo precatório (ex: TJSP).
 
 data_publicacao: Data de publicação do precatório.
+
+
 
 
 
@@ -443,6 +469,8 @@ tipo: Tipo do documento (ex: RG, CNH).
 enviado_em: Data e hora em que o documento foi enviado.
 
 arquivo_url: URL para acessar ou baixar o arquivo do documento.
+
+
 
 
 
@@ -463,6 +491,8 @@ status: Status atual da certidão (ex: pendente, aprovada).
 recebida_em: Data em que a certidão foi recebida.
 
 arquivo_url:
+
+
 
 
 
@@ -519,7 +549,10 @@ Exemplo de resposta
 }
 
 
+
+
 Explicação dos campos da resposta
+
 
 message: Confirma que a busca simulada de certidões foi concluída.
 
@@ -544,6 +577,8 @@ status: Resultado da certidão (exemplo: positiva, negativa).
 recebida_em: Data e hora em que a certidão foi recebida.
 
 created_at e updated_at: Datas de criação e atualização do registro.
+
+
 
 
 
