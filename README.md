@@ -57,7 +57,7 @@ API para cadastro e gerenciamento de credores, precatórios, documentos pessoais
 
 1. Criar Credor com Precatório
 
-- **POST /credores**
+- POST /credores
 
 Request Body (JSON):
 ```json
