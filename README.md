@@ -1,47 +1,45 @@
 📦 Mercatório Backend Challenge
 
+# Projeto API REST - Originação de Precatórios na Mercatório
+
 Projeto API REST que simula a etapa de originação de precatórios na Mercatório, permitindo o cadastro de credores, seus precatórios, upload e gestão de documentos pessoais e certidões.
 
 O sistema suporta o fluxo inicial de análise jurídica e documental dos direitos creditórios, com funcionalidades para obtenção manual e automática de certidões, upload de documentos e consulta consolidada dos dados do credor.
 
 Uma API mock local simula a busca automática de certidões via CPF/CNPJ, enquanto um job agendado com Sidekiq Cron executa a revalidação periódica das certidões para manter os dados atualizados e íntegros.
 
-Funcionalidades Principais
-Cadastro de credores e seus precatórios.
+---
 
-Upload de documentos pessoais (ex: RG, comprovante de residência) com validação de formato e tamanho.
+## Funcionalidades Principais
 
-Upload manual e automático de certidões, incluindo suporte a arquivos Base64.
+- Cadastro de credores e seus precatórios.  
+- Upload de documentos pessoais (ex: RG, comprovante de residência) com validação de formato e tamanho.  
+- Upload manual e automático de certidões, incluindo suporte a arquivos Base64.  
+- Consulta consolidada de credores, documentos, precatórios e certidões.  
+- Revalidação automática diária das certidões via job Sidekiq Cron.  
+- API mockada para simular consulta externa de certidões.  
+- Painel Sidekiq para gerenciamento das filas.
 
-Consulta consolidada de credores, documentos, precatórios e certidões.
+---
 
-Revalidação automática diária das certidões via job Sidekiq Cron.
+## Validações de Upload de Arquivos
 
-API mockada para simular consulta externa de certidões.
+- **Tipos permitidos:** JPEG, PNG, PDF.  
+- **Tamanho máximo:** 5MB por arquivo.  
+- Essas restrições garantem integridade e segurança no armazenamento dos documentos.
 
-Painel Sidekiq para gerenciamento das filas.
+---
 
-Validações de Upload de Arquivos
-Tipos permitidos: JPEG, PNG, PDF.
+## Tecnologias Utilizadas
 
-Tamanho máximo: 5MB por arquivo.
+- Ruby 3.1.2  
+- Rails 7.1.5.1  
+- PostgreSQL 14.17  
+- Redis 7.4.0  
+- Sidekiq 7.3.9 (com Sidekiq Cron)  
+- RSpec para testes automatizados  
+- Active Storage para upload de arquivos
 
-Essas restrições garantem integridade e segurança no armazenamento dos documentos.
-
-Tecnologias Utilizadas
-Ruby 3.1.2
-
-Rails 7.1.5.1
-
-PostgreSQL 14.17
-
-Redis 7.4.0
-
-Sidekiq 7.3.9 (com Sidekiq Cron)
-
-RSpec para testes automatizados
-
-Active Storage para upload de arquivos
 
 
 Como Executar o Projeto Localmente
