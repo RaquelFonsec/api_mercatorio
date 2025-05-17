@@ -1,4 +1,4 @@
-📦 Mercatório Backend Challenge
+
 
 # Projeto API REST - Originação de Precatórios na Mercatório
 
@@ -30,23 +30,24 @@ Uma API mock local simula a busca automática de certidões via CPF/CNPJ, enquan
 
 ---
 
-## Tecnologias Utilizadas
+Tecnologias Utilizadas
+Ruby 3.1.2
 
-- Ruby 3.1.2  
-- Rails 7.1.5.1  
-- PostgreSQL 14.17  
-- Redis 7.4.0  
-- Sidekiq 7.3.9 (com Sidekiq Cron)  
-- RSpec para testes automatizados  
-- Active Storage para upload de arquivos
+Rails 7.1.5.1
 
+PostgreSQL 14.17
 
+Redis 7.4.0
+
+Sidekiq 7.3.9 (com Sidekiq Cron)
+
+RSpec para testes automatizados
+
+Active Storage para upload de arquivos
 
 Como Executar o Projeto Localmente
 
-
 Requisitos
-
 Ruby 3.1.2
 
 Rails 7.1.5.1
@@ -57,9 +58,8 @@ Redis 7.4.0
 
 Sidekiq 7.3.9
 
-
-
 Clone o repositório:
+
 
 
 git clone https://github.com/RaquelFonsec/api_mercatorio.git
@@ -98,45 +98,46 @@ bundle exec rspec
 
 
 Índice
-
 Testes RSpec para CredoresController
 1.1. Criação de Credores (POST #create)
+
 1.2. Upload de Documentos (POST #upload_documento)
+
 1.3. Busca de Certidões via API (POST #buscar_certidoes_api)
+
 1.4. Upload Manual de Certidões (POST #upload_certidao_manual)
+
 1.5. Visualização de Credor (GET #show)
 
-
 Configuração de Rotas
-
 2.1. Painel Sidekiq com Autenticação
+
 2.2. Rotas RESTful para Credores com Ações Customizadas
+
 2.3. Namespace API para Certidões e Credores
 
-
 Modelos
-
 3.1. Certidao — Relacionamentos, enums, validações e métodos
+
 3.2. Credor — Relacionamentos e validações
+
 3.3. DocumentoPessoal — Relacionamentos, validações e callbacks
+
 3.4. Precatorio — Relacionamentos e validações
 
-
 Controllers
-
 4.1. CredoresController — CRUD, upload de documentos e certidões, busca via API
+
 4.2. Api::CertidoesMockController — Mock da API de certidões
+
 4.3. Api::DocumentosPessoaisController — API para gerenciamento de documentos pessoais
 
-
 Service Classes
-
 5.1. Api::CertidoesMockService — Serviço para simular a busca de certidões via API externa mockada
 
-
 Jobs
-
 6.1. RevalidarCertidoesJob — Job para revalidação periódica das certidões via API mock
+
 
 
 
