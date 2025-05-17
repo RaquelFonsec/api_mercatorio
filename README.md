@@ -176,7 +176,7 @@ API para cadastro e gerenciamento de credores, precatórios, documentos pessoais
 **POST /credores**
 
 ### Request Body (JSON):
-```json
+
 {
   "credor": {
     "nome": "Maria Silva",
