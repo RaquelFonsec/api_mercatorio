@@ -47,21 +47,19 @@ Este projeto gerencia credores, documentos pessoais e certidões, suportando upl
 ---
 
 
+# API de Gestão de Credores, Precatórios, Documentos e Certidões
 
-
-# API de Credores e Precatórios
-
-API para cadastro de credores, upload de documentos e envio de certidões com arquivos em Base64.
+API para cadastro e gerenciamento de credores, precatórios, documentos pessoais e certidões, com suporte a upload de arquivos, consultas e revalidação automática das certidões via job Sidekiq.
 
 ---
 
-## 1. Cadastrar Credor com Precatório
+## Endpoints Principais
 
-- **POST** `/credores`  
-- **Content-Type:** `application/json`
+### 1. Criar Credor com Precatório
 
-### Request
+- **POST /credores**
 
+Request Body (JSON):
 ```json
 {
   "credor": {
@@ -77,6 +75,7 @@ API para cadastro de credores, upload de documentos e envio de certidões com ar
     }
   }
 }
+
 
 
 
