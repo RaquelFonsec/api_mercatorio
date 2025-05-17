@@ -15,6 +15,62 @@ Além disso, a aplicação utiliza o Sidekiq Cron para executar um job de revali
 A aplicação foi desenvolvida seguindo boas práticas de desenvolvimento RESTful, com suporte a upload de arquivos e documentação para execução local.
 
 
+Como Executar o Projeto Localmente
+
+
+Requisitos
+
+Ruby 3.1.2
+
+Rails 7.1.5.1
+
+PostgreSQL 14.17
+
+Redis 7.4.0
+
+Sidekiq 7.3.9
+
+
+
+Clone o repositório:
+
+
+git clone https://github.com/RaquelFonsec/api_mercatorio.git
+
+cd api_mercatorio
+
+
+Instale as gems:
+
+bundle install
+
+Configure o banco de dados
+
+rails db:create
+rails db:migrate
+
+Inicie o servidor Redis
+
+redis-server
+
+Inicie o Sidekiq
+
+bundle exec sidekiq
+
+Execute o servidor Rails
+
+rails server
+
+
+Testes Automatizados
+A aplicação inclui uma suíte de testes automatizados desenvolvida com RSpec para garantir o funcionamento correto dos endpoints e regras de negócio.
+
+Para executar os testes, rode o comando:
+
+bundle exec rspec
+
+
+
 ## Índice
 
 1. [Testes RSpec para CredoresController](#testes-rspec-para-credorescontroller)  
