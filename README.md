@@ -12,7 +12,17 @@ Para fins de simulação, uma API mock local é utilizada para simular a busca a
 Além disso, a aplicação utiliza o Sidekiq Cron para executar um job de revalidação automática das certidões a cada 24 horas. Esse job consulta todas as certidões cadastradas e verifica sua validade, garantindo que os dados estejam sempre atualizados e sincronizados com a fonte de origem. Essa abordagem assegura a integridade das informações e facilita a gestão dos documentos pelos usuários.
 
 
-A aplicação foi desenvolvida seguindo boas práticas de desenvolvimento RESTful, com suporte a upload de arquivos e documentação para execução local.
+Validação de arquivos enviados
+
+Para garantir a integridade e segurança dos arquivos enviados, o sistema inclui validações específicas para o upload de documentos pessoais e certidões. As validações implementadas são:
+
+Tipos de arquivos permitidos: Apenas arquivos com as extensões e formatos mais comuns e seguros são aceitos, incluindo JPEG, PNG e PDF.
+
+Tamanho máximo do arquivo: Os arquivos enviados não podem ultrapassar 5MB, prevenindo uploads excessivamente grandes que possam impactar a performance e o armazenamento.
+
+Essas validações asseguram que apenas documentos válidos sejam processados pela API, melhorando a confiabilidade do sistema e evitando problemas futuros no manuseio dos arquivos.
+
+
 
 
 Como Executar o Projeto Localmente
