@@ -7,9 +7,13 @@ O Mercatório Backend Challenge é um projeto de API REST que simula a etapa de 
 O objetivo do sistema é simular o fluxo inicial de análise jurídica e documental dos direitos creditórios, implementando funcionalidades como a obtenção manual e automática de certidões, upload de documentos pessoais e consulta consolidada dos dados do credor.
 
 
-Para fins de simulação, uma API mock local é utilizada para simular a busca automática de certidões a partir do CPF/CNPJ do credor. Além disso, o sistema inclui um job que revalida automaticamente as certidões a cada 24 horas.
+Para fins de simulação, uma API mock local é utilizada para simular a busca automática de certidões a partir do CPF/CNPJ do credor.
+
+Além disso, a aplicação utiliza o Sidekiq Cron para executar um job de revalidação automática das certidões a cada 24 horas. Esse job consulta todas as certidões cadastradas e verifica sua validade, garantindo que os dados estejam sempre atualizados e sincronizados com a fonte de origem. Essa abordagem assegura a integridade das informações e facilita a gestão dos documentos pelos usuários.
+
 
 A aplicação foi desenvolvida seguindo boas práticas de desenvolvimento RESTful, com suporte a upload de arquivos e documentação para execução local.
+
 
 ## Índice
 
