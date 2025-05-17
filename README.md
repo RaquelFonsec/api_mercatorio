@@ -57,7 +57,7 @@ API para cadastro de credores, upload de documentos e envio de certidões com ar
 
 ## 1. Cadastrar Credor com Precatório
 
-- **POST** `/credores`
+- **POST** `/credores`  
 - **Content-Type:** `application/json`
 
 ### Request
@@ -77,6 +77,7 @@ API para cadastro de credores, upload de documentos e envio de certidões com ar
     }
   }
 }
+
 
 
 
