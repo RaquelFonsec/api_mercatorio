@@ -49,26 +49,20 @@ Este projeto gerencia credores, documentos pessoais e certidões, suportando upl
 
 
 
+# API de Credores e Precatórios
 
-API Endpoints
+API para cadastro de credores, upload de documentos e envio de certidões com arquivos em Base64.
 
+---
 
-POST /credores — Cadastrar credor e seu precatório
+## 1. Cadastrar Credor com Precatório
 
-http://localhost:3000/credores/1/certidoes  (Postman)
+- **POST** `/credores`
+- **Content-Type:** `application/json`
 
-Cadastra um novo credor com seus dados pessoais e um precatório vinculado.
+### Request
 
-Request
-URL: /credores
-
-Method: POST
-
-Content-Type: application/json
-
-Body:
-
-
+```json
 {
   "credor": {
     "nome": "Maria Silva",
@@ -83,6 +77,8 @@ Body:
     }
   }
 }
+
+
 
 Response
 
@@ -478,7 +474,7 @@ Exemplo de resposta
 }
 
 
-Explicação dos campos
+###Explicação dos campos
 
 cpf_cnpj: CPF ou CNPJ consultado.
 
