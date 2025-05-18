@@ -82,56 +82,57 @@ Para executar os testes, rode o comando:
 
 bundle exec rspec
 
+
 Índice
 
-1. Testes RSpec para CredoresController
-2. 
-1.1. Criação de Credores (POST #create )
-   
-1.2. Upload de Documentos (POST #upload_documento)
+Testes RSpec para CredoresController
 
-1.3. Busca de Certidões via API (POST #buscar_certidoes_api)
+Criação de Credores (POST #create)
 
-1.4. Upload Manual de Certidões (POST #upload_certidao_manual)
+Upload de Documentos (POST #upload_documento)
 
-1.5. Visualização de Credor (GET #show)
+Busca de Certidões via API (POST #buscar_certidoes_api)
 
-4. Configuração de Rotas
-   
-2.1. Painel Sidekiq com Autenticação
+Upload Manual de Certidões (POST #upload_certidao_manual)
 
-2.2. Rotas RESTful para Credores com Ações Customizadas
+Visualização de Credor (GET #show)
 
-2.3. Namespace API para Certidões e Credores
+Configuração de Rotas
 
-6. Modelos
-7. 
-3.1. Certidao — Relacionamentos, enums, validações e métodos
-   
-3.2. Credor — Relacionamentos e validações
+Painel Sidekiq com Autenticação
 
-3.3. DocumentoPessoal — Relacionamentos, validações e callbacks
+Rotas RESTful para Credores com Ações Customizadas
 
-3.4. Precatorio — Relacionamentos e validações
+Namespace API para Certidões e Credores
 
-9. Controllers
-    
-4.1. CredoresController — CRUD, upload de documentos e certidões, busca via API
+Modelos
 
-4.2. Api::CertidoesMockController — Mock da API de certidões
+Certidao — Relacionamentos, enums, validações e métodos
 
-4.3. Api::DocumentosPessoaisController — API para gerenciamento de documentos pessoais
+Credor — Relacionamentos e validações
 
-11. Service Classes
-    
-5.1. Api::CertidoesMockService — Serviço para simular a busca de certidões via API externa mockada
+DocumentoPessoal — Relacionamentos, validações e callbacks
 
-13. Jobs
-14. 
-6.1. RevalidarCertidoesJob — Job para revalidação periódica das certidões via API mock
-    
+Precatorio — Relacionamentos e validações
+
+Controllers
+
+CredoresController — CRUD, upload de documentos e certidões, busca via API
+
+Api::CertidoesMockController — Mock da API de certidões
+
+Api::DocumentosPessoaisController — API para gerenciamento de documentos pessoais
+
+Service Classes
+
+Api::CertidoesMockService — Serviço para simular a busca de certidões via API externa mockada
+
+Jobs
+
+RevalidarCertidoesJob — Job para revalidação periódica das certidões via API mock
 
 Como Rodar os Testes
+
 Utilizar RSpec para executar os testes do controller CredoresController.
 Fixtures são usados para upload de arquivos (PDFs).
 Testes cobrem cenários válidos e inválidos para criação e upload.
