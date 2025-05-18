@@ -1,10 +1,6 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  get 'uploads/upload_manual'
-  get 'documentos_certidoes/upload_documento'
-  get 'documentos_certidoes/buscar_certidoes_api'
-  get 'documentos_certidoes/upload_certidao_manual'
   # Sidekiq Panel (com autenticação para produção)
   if Rails.env.production?
     authenticate :user, lambda { |u| u.admin? } do
@@ -18,10 +14,11 @@ Rails.application.routes.draw do
   resources :credores, only: [:create, :show] do
     member do
       post 'documentos', to: 'credores#upload_documento'
-      post 'certidoes', to: 'credores#upload_certidao_manual'
-      post 'buscar-certidoes', to: 'credores#buscar_certidoes_api'
+      post 'certidoes', to: 'certidoes_uploads#upload_certidao_manual'
+      post 'buscar-certidoes', to: 'api/certidoes_mock#buscar_certidoes_api' # <-- Alterado aqui
     end
   end
+  
 
   # Rotas da API Mock para Certidões
   namespace :api do
@@ -31,7 +28,6 @@ Rails.application.routes.draw do
 
     # Rotas de Credores dentro da API
     resources :credores do
-      # Sub-rotas de Documentos Pessoais dentro da API
       resources :documentos_pessoais, only: [:create, :index, :show, :destroy]
     end
   end
