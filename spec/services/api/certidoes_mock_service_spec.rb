@@ -1,51 +1,68 @@
 require 'rails_helper'
 
-RSpec.describe Api::CertidoesMockService do
-  let(:cpf_cnpj) { '12345678900' }
-  subject { described_class.new(cpf_cnpj) }
+RSpec.describe Api::CertidoesMockController, type: :controller do
+  describe "GET #buscar_certidoes_api" do
+    let!(:credor) { create(:credor, cpf_cnpj: "12345678900") }
 
-  describe '#buscar_certidoes' do
-    let(:resultado) { subject.buscar_certidoes }
+    context "quando o credor existe" do
+      before do
+        get :buscar_certidoes_api, params: { cpf_cnpj: credor.cpf_cnpj }
+      end
 
-    it 'retorna um hash com o cpf_cnpj informado' do
-      expect(resultado[:cpf_cnpj]).to eq(cpf_cnpj)
-    end
+      it "retorna status 200 (ok)" do
+        expect(response).to have_http_status(:ok)
+      end
 
-    it 'retorna um array de certidões' do
-      expect(resultado[:certidoes]).to be_an(Array)
-      expect(resultado[:certidoes].size).to eq(3)
-    end
+      it "retorna uma mensagem de sucesso" do
+        json = JSON.parse(response.body)
+        expect(json["message"]).to eq("Busca de certidões via API mockada concluída.")
+      end
 
-    it 'cada certidão possui tipo, status e conteudo_base64' do
-      resultado[:certidoes].each do |certidao|
-        expect(certidao).to have_key(:tipo)
-        expect(certidao).to have_key(:status)
-        expect(certidao).to have_key(:conteudo_base64)
+      it "retorna as certidões mockadas no JSON" do
+        json = JSON.parse(response.body)
+        expect(json["certidoes_recebidas"]).to be_an(Array)
+        expect(json["certidoes_recebidas"].size).to eq(2)
+
+        primeira_certidao = json["certidoes_recebidas"].first
+        expect(primeira_certidao["tipo"]).to eq("federal")
+        expect(primeira_certidao["status"]).to eq("negativa")
+        expect(primeira_certidao["conteudo_base64"]).to be_present
+      end
+
+      it "cria as certidões no banco de dados" do
+        expect(Certidao.where(credor_id: credor.id).count).to eq(2)
       end
     end
 
-    it 'status das certidões estão entre os valores esperados' do
-      status_federal = ['negativa', 'positiva', 'pendente']
-      status_estadual = ['negativa', 'pendente']
-      status_trabalhista = ['negativa']
+    context "quando o credor não existe" do
+      before do
+        get :buscar_certidoes_api, params: { cpf_cnpj: "00000000000" }
+      end
 
-      cert_federal = resultado[:certidoes].find { |c| c[:tipo] == 'federal' }
-      cert_estadual = resultado[:certidoes].find { |c| c[:tipo] == 'estadual' }
-      cert_trabalhista = resultado[:certidoes].find { |c| c[:tipo] == 'trabalhista' }
+      it "retorna status 404 (not_found)" do
+        expect(response).to have_http_status(:not_found)
+      end
 
-      expect(status_federal).to include(cert_federal[:status])
-      expect(status_estadual).to include(cert_estadual[:status])
-      expect(status_trabalhista).to include(cert_trabalhista[:status])
+      it "retorna uma mensagem de erro no JSON" do
+        json = JSON.parse(response.body)
+        expect(json["error"]).to eq("Credor não encontrado")
+      end
     end
 
-    it 'o conteudo_base64 é uma string codificada em base64' do
-        service = described_class.new("12345678900")
-        resultado = service.buscar_certidoes
-      
-        resultado[:certidoes].each do |cert|
-          decoded = Base64.decode64(cert[:conteudo_base64]).force_encoding("UTF-8")
-          expect(decoded).to include("Conteúdo da certidão")
-        end
-      end      
+    context "quando ocorre um erro inesperado" do
+      before do
+        allow(Credor).to receive(:find_by).and_raise(StandardError.new("Erro inesperado"))
+        get :buscar_certidoes_api, params: { cpf_cnpj: credor.cpf_cnpj }
+      end
+
+      it "retorna status 500 (internal_server_error)" do
+        expect(response).to have_http_status(:internal_server_error)
+      end
+
+      it "retorna a mensagem de erro no JSON" do
+        json = JSON.parse(response.body)
+        expect(json["error"]).to eq("Erro inesperado")
+      end
+    end
   end
 end

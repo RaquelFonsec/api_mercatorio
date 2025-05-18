@@ -6,7 +6,7 @@ RSpec.describe Api::CertidoesMockController, type: :controller do
 
     context "quando o credor existe" do
       before do
-        get :buscar_certidoes_api, params: { id: credor.id }
+        get :buscar_certidoes_api, params: { cpf_cnpj: credor.cpf_cnpj }
       end
 
       it "retorna status 200 (ok)" do
@@ -32,7 +32,7 @@ RSpec.describe Api::CertidoesMockController, type: :controller do
 
     context "quando o credor não existe" do
       before do
-        get :buscar_certidoes_api, params: { id: 999999 }
+        get :buscar_certidoes_api, params: { cpf_cnpj: "00000000000" }
       end
 
       it "retorna status 404 (not_found)" do
@@ -47,8 +47,8 @@ RSpec.describe Api::CertidoesMockController, type: :controller do
 
     context "quando ocorre um erro inesperado" do
       before do
-        allow(Credor).to receive(:find).and_raise(StandardError.new("Erro inesperado"))
-        get :buscar_certidoes_api, params: { id: credor.id }
+        allow(Credor).to receive(:find_by).and_raise(StandardError.new("Erro inesperado"))
+        get :buscar_certidoes_api, params: { cpf_cnpj: credor.cpf_cnpj }
       end
 
       it "retorna status 500 (internal_server_error)" do

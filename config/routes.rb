@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   # Rotas da API Mock para Certidões
   namespace :api do
     defaults format: :json do
-      get 'certidoes', to: 'certidoes_mock#index'
+       get 'certidoes', to: 'certidoes_mock#buscar_certidoes_api'
     end
 
     # Rotas de Credores dentro da API
