@@ -29,6 +29,13 @@ class CertidoesUploadsController < ApplicationController
     elsif params[:conteudo_base64].present?
       begin
         decoded_data = Base64.decode64(params[:conteudo_base64])
+        
+        # Validação simples: verifica se é PDF pelo header %PDF
+        unless decoded_data[0..3] == "%PDF"
+          render json: { error: "Conteúdo Base64 não é um PDF válido" }, status: :unprocessable_entity
+          return
+        end
+
         temp_file = StringIO.new(decoded_data)
         temp_file.class.class_eval { attr_accessor :original_filename, :content_type }
         temp_file.original_filename = "arquivo_#{Time.now.to_i}.pdf"
