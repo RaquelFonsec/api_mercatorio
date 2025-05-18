@@ -15,14 +15,11 @@ class RevalidarCertidoesJob < ApplicationJob
   private
   
   def revalidar_certidao(certidao)
-    # Registra início da revalidação
     Rails.logger.info("Iniciando revalidação da certidão ##{certidao.id} do credor #{certidao.credor.cpf_cnpj}")
-
+  
     begin
-      # Usa o serviço de mock que você já tem implementado
       resultado = chamar_api_externa(certidao)
-
-      # Atualiza a certidão com o resultado da revalidação
+  
       if resultado[:sucesso]
         certidao.atualizar_apos_revalidacao(
           resultado[:status],
@@ -30,13 +27,12 @@ class RevalidarCertidoesJob < ApplicationJob
         )
         Rails.logger.info("Certidão ##{certidao.id} revalidada com sucesso. Novo status: #{resultado[:status]} para o credor #{certidao.credor.cpf_cnpj}")
       else
-        # Em caso de falha na API, marca como inválida
+        # Em caso de falha, não deve anexar conteúdo
         certidao.atualizar_apos_revalidacao(:invalida)
-        Rails.logger.error("Falha ao revalidar certidão ##{certidao.id} do credor #{certidao.credor.cpf_cnpj}: #{resultado[:erro]}")
+        Rails.logger.error("Falha ao revalidar certidão ##{certidao.id}: #{resultado[:erro]}")
       end
     rescue => e
-      # Tratamento de exceções durante o processo
-      Rails.logger.error("Erro ao revalidar certidão ##{certidao.id} do credor #{certidao.credor.cpf_cnpj}: #{e.message}")
+      Rails.logger.error("Erro ao revalidar certidão ##{certidao.id}: #{e.message}")
       certidao.atualizar_apos_revalidacao(:invalida)
     end
   end

@@ -45,9 +45,16 @@ class Certidao < ApplicationRecord
 
   # Método para atualizar a certidão após a revalidação
   def atualizar_apos_revalidacao(novo_status, novo_conteudo_base64 = nil)
-    # Atualiza o status e o conteúdo base64 (se fornecido)
-    update(status: novo_status, conteudo_base64: novo_conteudo_base64)
-  end
+    transaction do
+      # Atualiza o status e o conteúdo base64
+      update!(status: novo_status, conteudo_base64: novo_conteudo_base64)
+      
+      # Se o status for "invalida", remova o attachment
+      if invalida? && arquivo.attached?
+        arquivo.purge
+      end
+    end
+  end  
   
   # Método para filtrar certidões a serem revalidadas
   def self.para_revalidar
