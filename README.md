@@ -117,19 +117,98 @@ Precatorio — Relacionamentos e validações
 
 Controllers
 
-CredoresController — CRUD, upload de documentos e certidões, busca via API
+###CredoresController — Gerenciamento de Credores, Upload de Documentos e Exibição de Informações
 
-Api::CertidoesMockController — Mock da API de certidões
 
-Api::DocumentosPessoaisController — API para gerenciamento de documentos pessoais
+create: Cria ou atualiza um credor e seu precatório associado. Se o credor já existir, apenas os dados são atualizados; caso contrário, um novo registro é criado.
+
+
+upload_documento: Realiza o upload de documentos pessoais vinculados ao credor, como RG, CPF ou comprovantes, salvando o arquivo no banco e gerando um link de acesso.
+
+
+show: Exibe detalhes completos do credor, incluindo dados cadastrais, precatório associado, documentos pessoais e certidões vinculadas, além de links para download dos arquivos.
+
+
+Rescue e Tratamento de Erros: Implementa tratamento de exceções para casos de credores não encontrados ou falhas no upload de arquivos.
+
+
+Antes das Ações: Utiliza before_action :set_credor para carregar o credor em ações específicas, garantindo que apenas credores válidos sejam manipulados.
+
+
+Buscar certidões via API mock (POST /credores/:id/buscar-certidoes) que cria certidões fictícias com conteúdo em Base64.
+
+
+###Api::CertidoesMockController — Simulação de Busca de Certidões via API Mockada
+
+buscar_certidoes_api: Simula a busca de certidões para um credor específico utilizando dados mockados.
+
+Recebe o id do credor e utiliza seu CPF/CNPJ para gerar certidões fictícias (federal e trabalhista) em formato Base64.
+
+As certidões geradas são salvas no banco de dados associadas ao credor, com informações como tipo, status e conteúdo codificado.
+
+Retorna uma lista das certidões mockadas criadas, incluindo IDs, tipos, status e timestamps.
+
+Inclui tratamento para credores não encontrados e outros erros, retornando mensagens apropriadas.
+
+
+
+####CertidoesUploadsController — Upload Manual de Certidões
+
+upload_certidao_manual: Permite o upload de certidões manualmente associadas a um credor.
+
+Processamento:
+
+Verifica se o credor existe.
+
+Valida o tipo da certidão.
+
+Salva o arquivo diretamente ou decodifica o Base64 e o transforma em um PDF temporário.
+
+Retorna os detalhes da certidão criada, incluindo o link para download.
+
+Tratamento de erros inclui credor não encontrado, tipo inválido e falhas na decodificação do Base64.
+
+
+
 
 Service Classes
 
-Api::CertidoesMockService — Serviço para simular a busca de certidões via API externa mockada
+Api::CertidoesMockService: Serviço responsável por simular a busca de certidões via API externa mockada, retornando certidões fictícias para um CPF/CNPJ específico.
+
 
 Jobs
 
-RevalidarCertidoesJob — Job para revalidação periódica das certidões via API mock
+RevalidarCertidoesJob: Job responsável pela revalidação periódica das certidões existentes, utilizando o serviço Api::CertidoesMockService para atualizar status e conteúdo base64.
+
+
+Comandos para verificar onde os arquivos do Active Storage estão armazenados e visualizar seu conteúdo
+
+Localizar o diretório raiz do armazenamento local
+
+No console Rails (rails c), execute:
+
+ActiveStorage::Blob.service.root
+
+
+Retorna o caminho absoluto da pasta onde os arquivos são salvos localmente, por exemplo:
+
+/caminho/para/seu/projeto/storage
+
+Listar o conteúdo (pastas e arquivos) da pasta de armazenamento
+
+No console Rails, rode:
+
+Dir.entries(ActiveStorage::Blob.service.root)
+Mostra as subpastas organizadas por hash onde os arquivos estão guardados.
+
+Explorar arquivos específicos
+
+Para ver arquivos dentro das subpastas, use comandos do terminal, por exemplo:
+
+ls -l /caminho/para/seu/projeto/storage/<subpasta>
+
+
+
 
 Como Rodar os Testes
 
@@ -228,7 +307,7 @@ Status: 201 Created
 Body: URL temporária para acessar o documento enviado
 
 {
-  "arquivo_url": "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MzQsInB1ciI6ImJsb2JfaWQifX0=--e3ca8071bea82cd8956755c32c76661119d07b44/RG.pdf" ( Dados de Exemplo ficticio)
+  "arquivo_url": "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MzQsInB1ciI6ImJsb2JfaWQifX0=--e3ca8064bea82cd8956755c32c76661119d07b44/RG.pdf" ( Dados de Exemplo ficticio)
 
 }
 
@@ -269,19 +348,19 @@ Você deve colocar no campo conteudo_base64 do JSON para enviar o arquivo para a
 
 Exemplo de requisição POST para criar uma certidão manual com conteúdo Base64:
 
-Você deve enviar um JSON no corpo da requisição com os seguintes campos:
+curl -X POST http://localhost:3000/credores/1/certidoes \
+  -H "Content-Type: application/json" \
+  -d '{
+    "tipo": "federal",
+    "origem": "manual",
+    "status": "pendente",
+    "recebida_em": "2025-05-17T18:22:33Z",
+    "conteudo_base64": "JVBERi0xLjUNCiW1tbW1DQoxIDAgb2JqDQo8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFIvTGFuZw=="
+  }'
 
 
-{
-  "tipo": "federal",
-  "origem": "manual",
-  "status": "pendente",
-  "recebida_em": "2025-05-17T18:22:33Z",
-  "conteudo_base64": "JVBERi0xLjUNCiW1tbW1DQoxIDAgb2JqDQo8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFIvTGFuZw==" (Dados ficticios de exemplo)
-}
 
-
-
+Lembre-se de trocar o 1 no caminho pela ID correta do credor e substituir o valor do "conteudo_base64" pela sua string Base64 real (gerada com o comando base64 /caminho/arquivo.pdf | tr -d '\n').
 
 
 tipo: tipo da certidão (ex: federal, estadual, municipal, etc.)
@@ -301,7 +380,7 @@ Após o envio correto, a API retornará um JSON contendo os dados da certidão c
 
 
 {
-  "id": 90,
+  "id": 10,
   "tipo": "federal",
   "origem": "manual",
   "status": "pendente",
@@ -468,7 +547,7 @@ Simula a obtenção automática de certidões para um credor específico usando 
 
 
 URL
-POST http://localhost:3000/credores/:id/buscar-certidoes
+POST http://localhost:3000/credores/:id/buscar-certidoes (VIA POSTMAN)
 
 (Substitua :id pelo id do credor desejado )
 
@@ -554,7 +633,7 @@ Este endpoint simula uma API de certidões que retorna uma lista de certidões p
 
 
 URL
-GET http://localhost:3000/api/certidoes?cpf_cnpj=00000000000
+GET http://localhost:3000/api/certidoes?cpf_cnpj=00000000000 (VIA POSTMAN)
 
 Parâmetros da Query
 
@@ -613,6 +692,8 @@ tipo: Tipo da certidão (ex.: federal, estadual, trabalhista ).
 status: Status atual da certidão (ex.: pendente, negativa).
 
 conteudo_base64: Conteúdo fictício criado para teste da certidão codificado em Base64 (pode ser decodificado para obter o arquivo original, como PDF).
+
+
 
 Revalidação Automática de Certidões com Sidekiq e Redis
 
@@ -699,12 +780,44 @@ Para teste manual:
 
 rails c
 
-RevalidarCertidoesJob.perform_now
+RevalidarCertidoesJob.perform_later
 
 
 Acesse no navegador
 
 http://localhost:3000/sidekiq
+
+
+Explicação da resposta retornada pelo Job RevalidarCertidoesJob
+
+O job RevalidarCertidoesJob realiza a revalidação automática das certidões em background e gera logs que indicam o resultado da operação para cada certidão processada.
+
+Exemplo de log retornado:
+
+
+2025-05-18T12:50:11.487Z pid=398395 tid=8x87 class=RevalidarCertidoesJob jid=39e4d90d043ce7239b96567a INFO: Certidão #3 revalidada com sucesso. Novo status: negativa para o credor 12345678900
+
+2025-05-18T12:50:11.487Z pid=398395 tid=8x87 class=RevalidarCertidoesJob jid=39e4d90d043ce7239b96567a INFO: Performed RevalidarCertidoesJob (Job ID: 1df909f2-2bf2-43e1-91a4-631c611945d3) from Sidekiq(default) in 295.01ms
+
+2025-05-18T12:50:11.488Z pid=398395 tid=8x87 class=RevalidarCertidoesJob jid=39e4d90d043ce7239b96567a elapsed=0.318 INFO: done Revalidação Automática de Certidões com Sidekiq e Redis
+
+
+O que cada parte significa:
+
+Certidão #3 revalidada com sucesso: A certidão de ID 3 foi atualizada com sucesso após consultar a API mockada.
+
+Novo status: negativa: O status atualizado da certidão (ex: negativa, positiva, pendente).
+
+para o credor 12345678900: Indica o CPF/CNPJ do credor relacionado.
+
+Performed RevalidarCertidoesJob ... in 295.01ms: Tempo que o job levou para executar.
+
+done Revalidação Automática de Certidões com Sidekiq e Redis: Confirmação que o processo foi concluído.
+
+
+
+
+
 
 
 Contribuições
