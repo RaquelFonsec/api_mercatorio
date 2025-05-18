@@ -79,23 +79,67 @@ Testes Automatizados
 A aplicação inclui uma suíte de testes automatizados desenvolvida com RSpec para garantir o funcionamento correto dos endpoints e regras de negócio.
 Para executar os testes, rode o comando:
 
-
 bundle exec rspec
+
+###Testes do CredoresController##
+
+POST #create
+
+Testa criação de credor com parâmetros válidos e inválidos, incluindo atualização se o cpf_cnpj já existir.
+
+GET #show
+
+Verifica resposta ao buscar credor existente e tratamento de erro quando não encontrado.
+
+POST #upload_documento
+
+Testa upload de documento com arquivo válido, sem arquivo (erro) e para credor inexistente (erro 404).
+
+
+
+
+
+####Testes do CertidoesUploadsController - Ação upload_certidao_manual:####
+
+Verifica o upload manual de certidões para um credor específico.
+
+Testa casos de sucesso para envio de arquivo e conteúdo Base64.
+
+Valida erros para credor inexistente, tipo inválido, ausência de arquivo/conteúdo, e conteúdo Base64 inválido.
+
+Garante respostas HTTP corretas (201 para sucesso, 404 e 422 para erros).
+
+
+
+###Testes para RevalidarCertidoesJob###
+
+Executa o job e revalida certidões pendentes: Verifica se o job atualiza o status da certidão para "negativa" e mantém o attachment quando a API retorna sucesso.
+
+Marca a certidão como inválida e remove o attachment quando a API retorna erro: Verifica se o job atualiza o status para "invalida" e remove o attachment quando a API não encontra certidões.
+
+
+
+
+##Teste Api::CertidoesMockController ##
+
+Testa o endpoint buscar_certidoes_api do controller Api::CertidoesMockController, verificando respostas corretas para credor existente, não existente e erro inesperado, além da criação das certidões no banco.
+
+
+
+##Teste do Api::CertidoesMockService:##
+
+
+Verifica se o serviço retorna um hash contendo o CPF/CNPJ correto, uma lista de certidões com os atributos esperados (tipo, status, conteudo_base64), se os status das certidões estão dentro dos valores permitidos, e se o conteúdo base64 
+
+é uma string válida decodificável contendo texto esperado.
+
+
+
 
 
 Índice
 
-Testes RSpec para CredoresController
-
-Criação de Credores (POST #create)
-
-Upload de Documentos (POST #upload_documento)
-
-Busca de Certidões via API (POST #buscar_certidoes_api)
-
-Upload Manual de Certidões (POST #upload_certidao_manual)
-
-Visualização de Credor (GET #show)
+Testes Rspec
 
 Configuração de Rotas
 
@@ -209,13 +253,6 @@ ls -l /caminho/para/seu/projeto/storage/<subpasta>
 
 
 
-
-Como Rodar os Testes
-
-Utilizar RSpec para executar os testes do controller CredoresController.
-Fixtures são usados para upload de arquivos (PDFs).
-Testes cobrem cenários válidos e inválidos para criação e upload.
-API de Gestão de Credores, Precatórios, Documentos e Certidões
 
 
 
