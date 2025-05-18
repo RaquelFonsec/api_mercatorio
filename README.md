@@ -182,17 +182,25 @@ Antes das Ações: Utiliza before_action :set_credor para carregar o credor em a
 Buscar certidões via API mock (POST /credores/:id/buscar-certidoes) que cria certidões fictícias com conteúdo em Base64.
 
 
-###Api::CertidoesMockController — Simulação de Busca de Certidões via API Mockada
 
-buscar_certidoes_api: Simula a busca de certidões para um credor específico utilizando dados mockados.
+### Api::CertidoesMockController - Simulação de busca de certidões via API mockada
 
-Recebe o id do credor e utiliza seu CPF/CNPJ para gerar certidões fictícias (federal e trabalhista) em formato Base64.
+Ação: buscar_certidoes_api
 
-As certidões geradas são salvas no banco de dados associadas ao credor, com informações como tipo, status e conteúdo codificado.
+- Recebe `cpf_cnpj` como parâmetro.
+- 
+- Busca o credor correspondente no banco.
+- 
+- Se não encontrado, retorna erro 404.
+- 
+- Se encontrado, cria certidões mockadas (federal e trabalhista) em Base64 associadas ao credor.
+- 
+- Salva essas certidões no banco.
+- 
+- Retorna JSON com mensagem de sucesso e dados das certidões criadas.
+- 
+- Trata erros inesperados com resposta 500 e mensagem de erro.
 
-Retorna uma lista das certidões mockadas criadas, incluindo IDs, tipos, status e timestamps.
-
-Inclui tratamento para credores não encontrados e outros erros, retornando mensagens apropriadas.
 
 
 
@@ -264,6 +272,21 @@ Criar Credor com Precatório
 
 POST /credores
 
+Como enviar a requisição no Postman:
+
+Método: Selecione POST.
+
+http://localhost:3000/credores
+
+Headers: Adicione o header:Content-Type: application/json
+
+Body:
+
+Selecione raw.
+
+Escolha o formato JSON.
+
+Insira o seguinte JSON no campo Body:
 
 Request Body (JSON):
 
@@ -341,7 +364,7 @@ Response:
 
 Status: 201 Created
 
-Body: URL temporária para acessar o documento enviado
+Body: URL temporária para acessar o documento enviado http://localhost:3000
 
 {
   "arquivo_url": "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MzQsInB1ciI6ImJsb2JfaWQifX0=--e3ca8064bea82cd8956755c32c76661119d07b44/RG.pdf" ( Dados de Exemplo ficticio)
@@ -354,7 +377,7 @@ Body: URL temporária para acessar o documento enviado
 
 Upload de Certidões via JSON com conteúdo em Base64
 
-POST /credores/:id/certidoes
+POST /credores/:id/certidoes (VIA POSTMAN)
 
 Esse endpoint recebe uma certidão vinculada ao credor, enviando os dados via JSON, incluindo o arquivo codificado em Base64.
 
@@ -381,11 +404,21 @@ base64 "/caminho/para/arquivo.pdf" | head -c 50
 O que fazer com a string Base64 gerada? 
 
 Você deve colocar no campo conteudo_base64 do JSON para enviar o arquivo para a API.
-
+Nota: A prévia com 50 caracteres é apenas para visualização. Sempre envie a string Base64 completa para o upload funcionar.
 
 Exemplo de requisição POST para criar uma certidão manual com conteúdo Base64:
 
-curl -X POST http://localhost:3000/credores/1/certidoes \
+No Postman Headers: Adicione o header:Content-Type: application/json
+
+Body:
+
+Selecione raw.
+
+Escolha o formato JSON.
+
+Insira o conteúdo no formato JSON, incluindo o campo conteudo_base64.
+
+   POST http://localhost:3000/credores/1/certidoes \
   -H "Content-Type: application/json" \
   -d '{
     "tipo": "federal",
@@ -736,26 +769,25 @@ Revalidação Automática de Certidões com Sidekiq e Redis
 
 Descrição do Job RevalidarCertidoesJob
 
-O job RevalidarCertidoesJob automatiza a revalidação das certidões no sistema, buscando todas as certidões que precisam ser revalidadas (mais de 24 horas desde a última validação) e atualizando seu status e conteúdo via uma API mockada.
-
+O job RevalidarCertidoesJob automatiza a revalidação das certidões no sistema, buscando todas as certidões que precisam ser revalidadas (com mais de 24 horas desde a última validação) e atualizando seu status e conteúdo via uma API mockada.
 
 Fluxo de funcionamento:
 
 Executado em background pelo Sidekiq.
 
-Busca as certidões para revalidação (Certidao.para_revalidar).
+Busca as certidões que precisam de revalidação (usando o escopo Certidao.para_revalidar).
 
 Para cada certidão:
 
-Chama o serviço externo mockado para revalidar.
+Chama o serviço externo (mockado) para obter a revalidação.
 
-Atualiza status e conteúdo da certidão.
+Atualiza o status e o conteúdo da certidão.
 
 Registra logs de sucesso ou erro.
 
 Configuração do Sidekiq com Cron e Redis
 
-Usamos Sidekiq Cron para agendar a execução diária às 2h da manhã.
+Utilizamos o sidekiq-cron para agendar a execução diária do job às 2h da manhã, e o Redis como backend de filas.
 
 
 
@@ -813,14 +845,14 @@ Iniciar o servidor Rails
 rails server
 
 
-Para teste manual:
+Para executar o job manualmente no console Rails:
 
 rails c
 
 RevalidarCertidoesJob.perform_later
 
 
-Acesse no navegador
+Acompanhe os jobs e filas no painel web do Sidekiq acessando:
 
 http://localhost:3000/sidekiq
 
