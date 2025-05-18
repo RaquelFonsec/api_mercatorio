@@ -1,6 +1,10 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  get 'uploads/upload_manual'
+  get 'documentos_certidoes/upload_documento'
+  get 'documentos_certidoes/buscar_certidoes_api'
+  get 'documentos_certidoes/upload_certidao_manual'
   # Sidekiq Panel (com autenticação para produção)
   if Rails.env.production?
     authenticate :user, lambda { |u| u.admin? } do
