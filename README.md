@@ -228,17 +228,17 @@ Buscar certidões via API mock (POST /credores/:id/buscar-certidoes) que cria ce
 Ação: buscar_certidoes_api
 
 - Recebe `cpf_cnpj` como parâmetro.
-- 
+ 
 - Busca o credor correspondente no banco.
-- 
+ 
 - Se não encontrado, retorna erro 404.
-- 
+ 
 - Se encontrado, cria certidões mockadas (federal e trabalhista) em Base64 associadas ao credor.
-- 
+  
 - Salva essas certidões no banco.
-- 
+  
 - Retorna JSON com mensagem de sucesso e dados das certidões criadas.
-- 
+  
 - Trata erros inesperados com resposta 500 e mensagem de erro.
 
 
