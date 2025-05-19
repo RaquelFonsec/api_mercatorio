@@ -97,6 +97,13 @@ Essas restrições garantem integridade e segurança no armazenamento dos docume
 
 
 
+
+![image](https://github.com/user-attachments/assets/80e70c69-c978-411f-b9b0-d220ff03314e)
+
+
+
+
+
 ![image](https://github.com/user-attachments/assets/cae7925f-2ab2-457f-8304-b0b5b36c10d8)
 
 
