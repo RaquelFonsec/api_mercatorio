@@ -19,6 +19,15 @@ Revalidação automática diária das certidões via job Sidekiq Cron.
 API mockada para simular consulta externa de certidões.
 Painel Sidekiq para gerenciamento das filas.
 
+Interface Web Completa: Plataforma web intuitiva e responsiva para gerenciar todo o fluxo de cadastro de credores, seus precatórios e respectivos documentos.
+
+Cadastro de Credores e Precatórios: Criação de credores com todos os dados essenciais, incluindo precatórios vinculados e seus detalhes financeiros.
+
+Upload de Documentos Pessoais: Envio de documentos pessoais (ex: RG, CPF, comprovante de residência) com validação de formato e tamanho.
+
+Upload de Certidões: Upload manual e automático de certidões, com suporte a arquivos Base64 para integração com sistemas externos.
+
+Consulta Consolidada: Visualização centralizada de credores, documentos pessoais, precatórios e certidões em um único painel.
 
 Validações de Upload de Arquivos
 Tipos permitidos: JPEG, PNG, PDF.
@@ -74,6 +83,19 @@ bundle exec sidekiq
 Execute o servidor Rails:
 
 rails server
+
+##interface web - http://localhost:3000
+
+
+![image](https://github.com/user-attachments/assets/bbd32be5-7def-42c4-b1ff-ea44ab555599)
+
+
+
+
+
+
+
+
 
 Testes Automatizados
 A aplicação inclui uma suíte de testes automatizados desenvolvida com RSpec para garantir o funcionamento correto dos endpoints e regras de negócio.
