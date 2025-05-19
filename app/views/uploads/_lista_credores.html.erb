@@ -1,5 +1,5 @@
-<% if credores.any? %>
-  <% credores.each do |credor| %>
+<% if @credores.present? && @credores.any? %>
+  <% @credores.each do |credor| %>
     <div class="card mb-3">
       <div class="card-header">
         <strong><%= credor.nome %></strong> - CPF/CNPJ: <%= credor.cpf_cnpj %>

@@ -49,8 +49,6 @@ class UploadsController < ApplicationController
 
     begin
       credor = Credor.find(credor_id)
-
-      # Atenção aqui: sua associação correta é documentos_pessoais, não documentos
       documento = credor.documentos_pessoais.build(tipo: tipo)
       documento.arquivo.attach(arquivo) # ActiveStorage
 
@@ -132,7 +130,6 @@ class UploadsController < ApplicationController
     begin
       credor = Credor.find(credor_id)
 
-      # Aqui depende do que seu método realmente faz
       if credor.respond_to?(:buscar_certidoes_externas!) && credor.buscar_certidoes_externas!
         flash[:success] = "Certidões buscadas com sucesso!"
       else
@@ -158,7 +155,6 @@ class UploadsController < ApplicationController
     end
 
     begin
-      # Usar as associações corretas
       @credor = Credor.includes(:documentos_pessoais, :certidoes, :precatorio).find(credor_id)
       render :view_credor
     rescue ActiveRecord::RecordNotFound
