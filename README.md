@@ -93,6 +93,14 @@ rails server
 
 
 
+![image](https://github.com/user-attachments/assets/cf9d6c90-45e0-4c1d-b66a-ab0ce4096047)
+
+
+
+
+
+
+![image](https://github.com/user-attachments/assets/1376de1d-3bef-4887-b6e2-2506bf44ee8e)
 
 
 
