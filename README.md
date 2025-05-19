@@ -183,7 +183,7 @@ Buscar certidões via API mock (POST /credores/:id/buscar-certidoes) que cria ce
 
 
 
-### Api::CertidoesMockController - Simulação de busca de certidões via API mockada
+ Api::CertidoesMockController - Simulação de busca de certidões via API mockada
 
 Ação: buscar_certidoes_api
 
@@ -845,9 +845,7 @@ Iniciar o servidor Rails
 rails server
 
 
-Executar o job manualmente (opcional)
-
-
+Executar o job manualmente 
 
 rails c
 
