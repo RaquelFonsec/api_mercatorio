@@ -926,7 +926,7 @@ Explicação detalhada do log
 
 Certidão #106 revalidada com sucesso:
 
-A certidão com ID 106 foi consultada e atualizada com sucesso após a validação (neste caso, provavelmente consultando uma API externa ou mockada).
+A certidão com ID 106 foi consultada e atualizada com sucesso após a validação (neste caso, consultando a API externa, mockada).
 
 Novo status: negativa:
 
