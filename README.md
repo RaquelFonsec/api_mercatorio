@@ -84,6 +84,10 @@ Execute o servidor Rails:
 
 rails server
 
+
+
+
+
 ##interface web - http://localhost:3000
 
 
