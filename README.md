@@ -83,7 +83,7 @@ Cadastro de Credores e Precatórios: Criação de credores com todos os dados es
 
 Upload de Documentos Pessoais: Envio de documentos pessoais (ex: RG, CPF, comprovante de residência) com validação de formato e tamanho.
 
-Upload de Certidões: Upload manual  de certidões, com suporte a arquivos Base64 para integração com sistemas externos.
+Upload de Certidões: Upload manual  de certidões
 
 Consulta Consolidada: Visualização centralizada de credores, documentos pessoais, precatórios e certidões em um único painel.
 
