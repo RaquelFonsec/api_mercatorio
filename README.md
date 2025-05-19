@@ -842,37 +842,9 @@ Utilizamos o sidekiq-cron para agendar a execução diária do job às 2h da man
 
 
 
-require 'sidekiq'
 
-require 'sidekiq-cron'
+![image](https://github.com/user-attachments/assets/11c6a469-357e-4867-8b3e-9aa7f6c373d6)
 
-redis_config = { url: 'redis://localhost:6379/0' }
-
-Sidekiq.configure_server do |config|
-
-  config.redis = redis_config
-
-  if defined?(Sidekiq::Cron)
-  
-    Sidekiq::Cron::Job.load_from_hash(
-    
-      'revalidar_certidoes' => {
-      
-        'class' => 'RevalidarCertidoesJob',
-        
-        'cron' => '0 2 * * *',
-        
-        'description' => 'Revalida todas as certidões diariamente às 2h'
-      }
-    )
-    
-  end
-end
-
-Sidekiq.configure_client do |config|
-
-  config.redis = redis_config  
-end
 
 
 
