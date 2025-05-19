@@ -97,20 +97,32 @@ Essas restrições garantem integridade e segurança no armazenamento dos docume
 
 
 
-![image](https://github.com/user-attachments/assets/bbd32be5-7def-42c4-b1ff-ea44ab555599)
-
-
-
-
-
-![image](https://github.com/user-attachments/assets/cf9d6c90-45e0-4c1d-b66a-ab0ce4096047)
+![image](https://github.com/user-attachments/assets/cae7925f-2ab2-457f-8304-b0b5b36c10d8)
 
 
 
 
 
 
-![image](https://github.com/user-attachments/assets/1376de1d-3bef-4887-b6e2-2506bf44ee8e)
+![image](https://github.com/user-attachments/assets/16ae69e2-fbf0-42a2-bd59-3ad81c67182e)
+
+
+
+
+
+
+
+![image](https://github.com/user-attachments/assets/6e8fb71a-7c28-401d-b48d-718490e463e3)
+
+
+
+
+
+
+
+![image](https://github.com/user-attachments/assets/3a29bdc4-93df-422f-a908-22d1a28330d9)
+
+
 
 
 
