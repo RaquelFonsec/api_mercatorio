@@ -404,7 +404,6 @@ base64 "/caminho/para/arquivo.pdf" | head -c 50
 O que fazer com a string Base64 gerada? 
 
 Você deve colocar no campo conteudo_base64 do JSON para enviar o arquivo para a API.
-Nota: A prévia com 50 caracteres é apenas para visualização. Sempre envie a string Base64 completa para o upload funcionar.
 
 Exemplo de requisição POST para criar uma certidão manual com conteúdo Base64:
 
