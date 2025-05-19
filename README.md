@@ -918,24 +918,35 @@ O job RevalidarCertidoesJob realiza a revalidação automática das certidões e
 Exemplo de log retornado:
 
 
-2025-05-18T12:50:11.487Z pid=398395 tid=8x87 class=RevalidarCertidoesJob jid=39e4d90d043ce7239b96567a INFO: Certidão #3 revalidada com sucesso. Novo status: negativa para o credor 12345678900
-
-2025-05-18T12:50:11.487Z pid=398395 tid=8x87 class=RevalidarCertidoesJob jid=39e4d90d043ce7239b96567a INFO: Performed RevalidarCertidoesJob (Job ID: 1df909f2-2bf2-43e1-91a4-631c611945d3) from Sidekiq(default) in 295.01ms
-
-2025-05-18T12:50:11.488Z pid=398395 tid=8x87 class=RevalidarCertidoesJob jid=39e4d90d043ce7239b96567a elapsed=0.318 INFO: done Revalidação Automática de Certidões com Sidekiq e Redis
+![image](https://github.com/user-attachments/assets/379805f5-f937-46ef-9e53-08a9e586e357)
 
 
-O que cada parte significa:
 
-Certidão #3 revalidada com sucesso: A certidão de ID 3 foi atualizada com sucesso após consultar a API mockada.
+Explicação detalhada do log
 
-Novo status: negativa: O status atualizado da certidão (ex: negativa, positiva, pendente).
+Certidão #106 revalidada com sucesso:
 
-para o credor 12345678900: Indica o CPF/CNPJ do credor relacionado.
+A certidão com ID 106 foi consultada e atualizada com sucesso após a validação (neste caso, provavelmente consultando uma API externa ou mockada).
 
-Performed RevalidarCertidoesJob ... in 295.01ms: Tempo que o job levou para executar.
+Novo status: negativa:
 
-done Revalidação Automática de Certidões com Sidekiq e Redis: Confirmação que o processo foi concluído.
+Esse é o novo status atribuído à certidão após a revalidação — aqui indica que a certidão está “negativa”, ou seja, sem pendências.
+
+para o credor 12345678900:
+
+Mostra o CPF ou CNPJ do credor a quem essa certidão pertence. É a identificação do cliente ou entidade associada.
+
+Certidão #48 revalidada com sucesso. Novo status: pendente para o credor 12345678900:
+
+Da mesma forma, a certidão #48 foi atualizada com status “pendente”, indicando que há alguma pendência ou status ainda não resolvido.
+
+Performed RevalidarCertidoesJob (Job ID: b04bf0f7-01cd-41f5-ad19-b978f82e30a2) from Sidekiq(default) in 1444.18ms:
+
+Informa que o job RevalidarCertidoesJob foi executado com sucesso pelo Sidekiq (a fila de jobs) e levou cerca de 1,44 segundos para completar toda a revalidação.
+
+elapsed=1.604 INFO: done:
+
+Confirma que o processo de revalidação automática foi concluído sem erros, marcando o término do job.
 
 
 
