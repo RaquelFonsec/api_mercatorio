@@ -836,7 +836,7 @@ sudo service redis-server start
 
 Executar o Sidekiq
 
-bundle exec sidekiq
+bundle exec sidekiq 
 
 
 Iniciar o servidor Rails
@@ -845,7 +845,9 @@ Iniciar o servidor Rails
 rails server
 
 
-Para executar o job manualmente no console Rails:
+Executar o job manualmente (opcional)
+
+
 
 rails c
 
@@ -855,6 +857,9 @@ RevalidarCertidoesJob.perform_later
 Acompanhe os jobs e filas no painel web do Sidekiq acessando:
 
 http://localhost:3000/sidekiq
+
+
+Para ver logs específicos do Sidekiq: tail -f log/sidekiq.log | grep "Sidekiq"
 
 
 Explicação da resposta retornada pelo Job RevalidarCertidoesJob
