@@ -1,0 +1,52 @@
+<% if credores.any? %>
+  <% credores.each do |credor| %>
+    <div class="card mb-3">
+      <div class="card-header">
+        <strong><%= credor.nome %></strong> - CPF/CNPJ: <%= credor.cpf_cnpj %>
+      </div>
+      <div class="card-body">
+        <p>Email: <%= credor.email %> | Telefone: <%= credor.telefone %></p>
+
+        <h5>Precatório</h5>
+        <% if credor.precatorio.present? %>
+          <p>Número: <%= credor.precatorio.numero_precatorio %></p>
+          <p>Valor Nominal: R$ <%= number_to_currency(credor.precatorio.valor_nominal, unit: '') %></p>
+          <p>Foro: <%= credor.precatorio.foro %></p>
+          <p>Data de Publicação: <%= credor.precatorio.data_publicacao.strftime('%d/%m/%Y') %></p>
+        <% else %>
+          <p>Sem precatório cadastrado.</p>
+        <% end %>
+
+        <h5>Documentos Pessoais</h5>
+        <% if credor.documentos_pessoais.any? %>
+          <ul>
+            <% credor.documentos_pessoais.each do |doc| %>
+              <li>
+                Tipo: <%= doc.tipo %> - 
+                <%= link_to "Download", rails_blob_path(doc.arquivo, disposition: "attachment") if doc.arquivo.attached? %>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p>Sem documentos pessoais cadastrados.</p>
+        <% end %>
+
+        <h5>Certidões</h5>
+        <% if credor.certidoes.any? %>
+          <ul>
+            <% credor.certidoes.each do |certidao| %>
+              <li>
+                Tipo: <%= certidao.tipo %> - Status: <%= certidao.status %> - 
+                <%= link_to "Download", rails_blob_path(certidao.arquivo, disposition: "attachment") if certidao.arquivo.attached? %>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p>Sem certidões cadastradas.</p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <p>Nenhum credor cadastrado.</p>
+<% end %>

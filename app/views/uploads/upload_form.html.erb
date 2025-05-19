@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-md-12 text-center mb-4">
+    <h1>Upload de Documentos e Certidões</h1>
+    <p>Cadastre um novo credor ou envie documentos e certidões para um credor existente.</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <%= render 'form_credor' %>
+  </div>
+
+  <div class="col-md-6">
+    <%= render 'form_documento' %>
+    <%= render 'form_certidao' %>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-md-12 text-center">
+    <a href="/uploads/view_form" class="btn btn-outline-primary">Ir para Visualização</a>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="card">
+  <div class="card-header">
+    Cadastrar Novo Credor
+  </div>
+  <div class="card-body">
+    <%= form_with url: '/uploads/create_credor', method: :post, local: true do |form| %>
+      <div class="mb-3">
+        <label class="form-label">Nome Completo</label>
+        <%= form.text_field :nome, class: 'form-control', required: true %>
+      </div>
+      
+      <div class="mb-3">
+        <label class="form-label">CPF/CNPJ</label>
+        <%= form.text_field :cpf_cnpj, class: 'form-control', required: true %>
+      </div>
+      
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <%= form.email_field :email, class: 'form-control', required: true %>
+      </div>
+      
+      <div class="mb-3">
+        <label class="form-label">Telefone</label>
+        <%= form.telephone_field :telefone, class: 'form-control', required: true %>
+      </div>
+      
+      <h5 class="mt-4">Dados do Precatório</h5>
+      
+      <div class="mb-3">
+        <label class="form-label">Número do Precatório</label>
+        <%= form.text_field :numero_precatorio, class: 'form-control', required: true %>
+      </div>
+      
+      <div class="mb-3">
+        <label class="form-label">Valor Nominal</label>
+        <%= form.number_field :valor_nominal, step: '0.01', class: 'form-control', required: true %>
+      </div>
+      
+      <div class="mb-3">
+        <label class="form-label">Foro</label>
+        <%= form.text_field :foro, class: 'form-control', required: true %>
+      </div>
+      
+      <div class="mb-3">
+        <label class="form-label">Data de Publicação</label>
+        <%= form.date_field :data_publicacao, class: 'form-control', required: true %>
+      </div>
+      
+      <div class="d-grid">
+        <%= form.submit 'Cadastrar Credor', class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-md-12 text-center mb-4">
+    <h1>Visualização de Credores e Documentos</h1>
+    <p>Consulte informações de credores, documentos e certidões enviadas.</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+  <%= render 'lista_credores', credores: @credores %>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-md-12 text-center">
+    <a href="/uploads/upload_form" class="btn btn-outline-success">Voltar para Upload</a>
+  </div>
+</div>

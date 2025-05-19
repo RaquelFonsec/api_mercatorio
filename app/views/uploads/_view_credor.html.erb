@@ -1,0 +1,22 @@
+<div class="card mb-3">
+  <div class="card-header">
+    Credor
+  </div>
+  <div class="card-body">
+    <p>Nome: <%= @credor&.nome || 'N/A' %></p>
+    <p>Documento: <%= @credor&.cpf_cnpj || 'N/A' %></p>
+    <p>Email: <%= @credor&.email || 'N/A' %></p>
+  </div>
+</div>
+
+<div class="card mb-3">
+  <div class="card-header">
+    Dados do Precatório
+  </div>
+  <div class="card-body">
+    <p><strong>Número do Precatório:</strong> <%= @credor&.precatorio&.numero_precatorio || 'N/A' %></p>
+    <p><strong>Valor Nominal:</strong> <%= number_to_currency(@credor&.precatorio&.valor_nominal || 0) %></p>
+    <p><strong>Foro:</strong> <%= @credor&.precatorio&.foro || 'N/A' %></p>
+    <p><strong>Data de Publicação:</strong> <%= @credor&.precatorio&.data_publicacao&.strftime('%d/%m/%Y') || 'N/A' %></p>
+  </div>
+</div>

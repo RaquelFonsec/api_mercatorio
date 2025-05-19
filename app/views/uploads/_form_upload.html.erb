@@ -1,0 +1,25 @@
+<div class="row">
+  <!-- Formulário para cadastro de credor -->
+  <div class="col-md-6">
+    <%= render 'form_credor' %>
+  </div>
+  
+  <!-- Formulários para upload de documentos e certidões -->
+  <div class="col-md-6">
+    <%= render 'form_documento' %>
+    <%= render 'form_certidao' %>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-md-12">
+    <%= render 'form_buscar_certidoes' %>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-md-12 text-center">
+    <a href="/uploads/view_form" class="btn btn-outline-primary">Ir para Visualização</a>
+    <a href="/" class="btn btn-outline-secondary">Voltar para Início</a>
+  </div>
+</div>
